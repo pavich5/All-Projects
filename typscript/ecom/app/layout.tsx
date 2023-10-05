@@ -11,7 +11,6 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-    console.log(process.env, 'TUKA')
   return (
     <ClerkProvider publishableKey='pk_test_YmlnLWJhcm5hY2xlLTMxLmNsZXJrLmFjY291bnRzLmRldiQ'>
       <html lang="en">
