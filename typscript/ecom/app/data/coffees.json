@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "picture": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg?quality=90&resize=500,454",
+      "details": "A rich and aromatic espresso with a bold flavor.",
+      "price": 3.99,
+      "type": "Espresso"
+    },
+    {
+      "id": 2,
+      "type": "Cappuccino",
+      "picture": "https://neurosciencenews.com/files/2023/06/coffee-brain-caffeine-neuroscincces.jpg",
+      "details": "Smooth and creamy cappuccino with a hint of chocolate.",
+      "price": 4.49
+    },
+    {
+      "id": 3,
+      "type": "Iced Coffee",
+      "picture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvvid7Rti2V2O18lHOD46fsRqEkN4WLH29Ow&usqp=CAU",
+      "details": "Iced coffee with a refreshing taste and a dash of vanilla syrup.",
+      "price": 3.79
+    },
+    {
+      "id": 4,
+      "type": "Americano",
+      "picture": "https://i.guim.co.uk/img/media/0acd3ed1af8de9abc55fbc685ed255e7d65bbd1c/182_161_5602_3361/master/5602.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=5a7192229706a6bef8fe1b837d438596",
+      "details": "Smooth and creamy cappuccino with a hint of chocolate.",
+      "price": 3.49
+    },
+    {
+      "id": 5,
+      "type": "Decaf Coffee",
+      "picture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt86DsU1Q3xw88uFHJBX_QMC8I3y-B6g4TyQ&usqp=CAU",
+      "details": "Decaf coffee for those who enjoy the taste without the caffeine.",
+      "price": 3.29
+    }
+  ]
+  

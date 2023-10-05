@@ -1,0 +1,64 @@
+.productsPage {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  
+  .coffee {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    max-width: 230px;
+    text-align: left;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    align-items: flex-start;
+    justify-content: center;
+    
+  }
+  
+  .coffee img {
+    object-fit: contain;
+    max-width: 230px;
+    max-height: 230px;
+  }
+  
+  .coffee h3 {
+    font-size: 1.5rem;
+  }
+  
+  .coffee p {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .coffee .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .coffeeFilters{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .coffeeFilters ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .coffeeFilters li {
+    padding: 14px;
+    list-style: none;
+    border: 1px solid rgb(158, 158, 158);
+    border-radius: 4px;
+    margin-right: 6px;
+    cursor: pointer;
+  }
