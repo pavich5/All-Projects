@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="PlanetPages"
+  >
+    <div
+      class="landing-page"
+    >
+      <h1>
+        Welcome to the Star Wars Planet Viewer
+      </h1>
+      <p>
+        Explore the galaxy and discover exciting planets!
+      </p>
+    </div>
+    <div>
+      <div
+        class="planets"
+      />
+    </div>
+    <button>
+      Next
+    </button>
+    <div
+      class="showFavoriteButton"
+    >
+      <button>
+        Show Favorite Planets
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,28 +1,31 @@
 header {
-    background-color: transparent; 
+  background-color: #333;
     font-family: sans-serif;
     color: rgb(0, 0, 0); 
     padding: 0px 0; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     position: relative;
     z-index: 1;
     text-decoration: none;
-    color: black;
   }
   .logo a {
-    color: black;
+    color: #fff !important;
     text-decoration: none;
+    margin-left: 60px;
   }
   ul a {
     text-decoration: none;
-    color: black;
+    color: #fff;
   }
    .logo {
     font-size: 24px; 
     font-weight: bold; 
     cursor: pointer;
+    color: #fff;
+
   }
   
   nav ul {
@@ -32,7 +35,9 @@ header {
     align-items: center;
     padding: 2px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    color: #fff;
   }
 
   header div{
@@ -42,6 +47,45 @@ header {
   nav ul li {
     margin-right: 20px; 
   }
-  
 
+
+.coffee-search {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  border-bottom: 1px solid #ccc;
+}
+
+.coffee-search img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.coffee-search h3 {
+  margin: 0;
+}
+
+.coffee-list{
+  position: absolute;
+  top: 100%;
+  left: 85%;
+}
+  
+input[type="text"] {
+  width: 280px;
+  padding: 6px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 8px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF;
+}
   

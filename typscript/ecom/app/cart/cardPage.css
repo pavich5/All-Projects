@@ -46,4 +46,7 @@
     cursor: pointer;
     margin-left: 100px;
   }
-    
+
+.cartItem input {
+    width: 30px;
+}

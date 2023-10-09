@@ -1,40 +1,64 @@
 .product {
     display: flex;
-    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    align-content: flex-start;
-    justify-content: center;
-    margin-top: 200px;
-    background-color: aliceblue;
-}
-
-.product-image img {
-    width: 490px;
+    margin-top: 250px;
+    margin-left: 500px;
+  }
+  
+  .product-image img {
+    min-width: 550px;
+    min-height: 550px;
+    max-width: 550px;
+    max-height: 550px;
     object-fit: contain;
-}
-
-.product-info h1 {
-    font-size: 50px;
-}
-
-.product-info p {
-    font-size: 20px;
-}
-.product-info{
-    padding: 50px;
-}
-.product div button{
-    padding: 17px;
-    margin-right: 7px;
-    background-color: rgb(255, 135, 135);
-    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .product-info {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .product-info h1 {
+    font-size: 32px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .product-info p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .product-info .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF8787; 
+    margin-top: 10px;
+  }
+  
+  .product-info button {
+    background-color: #FF8787;
+    color: #fff;
     border: none;
+    padding: 14px 24px;
+    font-size: 20px;
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 4px;
-}
-
-.product-info div button:disabled{
-    background-color: gray;
+    outline: none;
+    transition: background-color 0.3s ease-in-out;
+    margin-right: 10px;
+  }
+  
+  .product-info button:hover {
+    background-color: #E25858; /* Darker red on hover */
+  }
+  
+  .product-info button:disabled {
+    background-color: #838383; /* Grayed out when disabled */
     cursor: not-allowed;
-}
-
+  }
+  

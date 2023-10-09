@@ -2,7 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import Header from './components/header/Header'
  
 export const metadata = {
-  title: 'Next.js 13 with Clerk',
+  title: 'Coffee Store',
 }
  
 export default function RootLayout({

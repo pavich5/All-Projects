@@ -1,8 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import styles from "./page.module.css";
-import { useUser } from "@clerk/nextjs";
-import { UserButton } from "@clerk/nextjs";
+  import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import './page.css'
 import Link from "next/link";
@@ -14,6 +12,7 @@ export default function Home() {
     if (!isSignedIn) {
       router.push("/sign-up", { scroll: false });
     }
+    
   }, []);
 
   if (!isLoaded || !isSignedIn) {
