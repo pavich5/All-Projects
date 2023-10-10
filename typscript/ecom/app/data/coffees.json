@@ -35,13 +35,6 @@
       "price": 3.29
     },
     {
-      "id": 6,
-      "picture": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg?quality=90&resize=500,454",
-      "details": "A rich and aromatic espresso with a bold flavor.",
-      "price": 3.99,
-      "type": "Espresso"
-    },
-    {
       "id": 7,
       "type": "Cappuccino",
       "picture": "https://neurosciencenews.com/files/2023/06/coffee-brain-caffeine-neuroscincces.jpg",

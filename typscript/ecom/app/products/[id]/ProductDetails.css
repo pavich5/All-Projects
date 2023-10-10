@@ -3,16 +3,16 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 250px;
-    margin-left: 500px;
+    margin-top: 150px;
+    margin-left: 300px;
   }
   
   .product-image img {
     min-width: 550px;
     min-height: 550px;
-    max-width: 550px;
+    max-width: 750px;
     max-height: 550px;
-    object-fit: contain;
+    object-fit: cover;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }

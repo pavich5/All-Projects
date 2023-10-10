@@ -1,42 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import coffeeData from '../../data/coffees.json'
 import { Coffee } from "../page";
 import "./ProductDetails.css";
 
 const Page = () => {
-  const { id: exerciseID } = useParams();
-  const [product, setProduct] = useState<Coffee | undefined>(undefined);
+  const { id: productID } = useParams();
   const [cartItems, setCartItems] = useState<Coffee[]>([]);
-  const [isClicked, setIsClicked] = useState(false);
-  const [coffeeData, setCoffeeData] = useState<Coffee[]>([]);
-useEffect(() => {
-  const data = localStorage.getItem("allCoffee");
-  if (data) {
-    setCoffeeData(JSON.parse(data));
-  }
-}, []);
+  const coffeeData = localStorage.getItem("allCoffee");
+  const storedCoffeeData = coffeeData ? JSON.parse(coffeeData) : [];
+  const [allCoffee, setAllCoffee] = useState<Coffee[]>(storedCoffeeData);
+  const productToDisplay = allCoffee.find((coffee: Coffee) => coffee.id === Number(productID));
+  const [product, setProduct] = useState<Coffee | undefined>(productToDisplay);
 
-useEffect(() => {
-  const prod = coffeeData.find(
-    (coffee: Coffee) => coffee.id === Number(exerciseID)
-  );
-  setProduct(prod);
-  const items = localStorage.getItem("cart");
-  if (items) {
-    setCartItems(JSON.parse(items));
-  }
-}, [exerciseID, coffeeData]);
+  useEffect(() => {
+    const items = localStorage.getItem("cart");
+    if (items) {
+      setCartItems(JSON.parse(items));
+    }
+  }, [productID, coffeeData]);
 
-useEffect(() => {
-  if (product) {
-    const updatedProduct = {
-      ...product,
-      isInCart: cartItems.some((item) => item.id === product.id),
-    };
-    setProduct(updatedProduct);
-  }
-}, []);
   const addToCart = () => {
     if (product) {
       const updatedProduct = {
@@ -48,13 +32,9 @@ useEffect(() => {
       );
       if (!isAlreadyInCart) {
         setCartItems((prevCart) => [...prevCart, updatedProduct]);
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([...cartItems, updatedProduct])
-        );
+        localStorage.setItem("cart",JSON.stringify([...cartItems, updatedProduct]));
       }
     }
-    setIsClicked(true);
   };
 
   return (
@@ -65,12 +45,13 @@ useEffect(() => {
             <img src={product.picture} alt={`Coffee ${product.id}`} />
           </div>
           <div className="product-info">
-            <h1>{product.type}</h1>
+            <h1 data-testid="product-title">{product.type}</h1>
             <p>{product.details}</p>
             <p>Price: ${product.price}</p>
             <div>
               <button
                 disabled={product.isInCart}
+                data-testid="add-to-cart-button"
                 style={{
                   backgroundColor: product.isInCart
                     ? "rgb(131, 131, 131)"

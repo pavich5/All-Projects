@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import coffees from '../data/coffees.json'
+import coffees from "../data/coffees.json";
 import "./products.css";
 import { Formik } from "formik";
 import Link from "next/link";
@@ -17,8 +17,11 @@ export interface Coffee {
 }
 
 const Page = () => {
-  const [allCoffee, setAllCoffee] = useState<Coffee[]>([]);
-  const [filteredCoffee, setFilteredCoffee] = useState<Coffee[]>([]);
+  const [allCoffee, setAllCoffee] = useState<Coffee[]>(() => {
+    const coffeeData = localStorage.getItem("allCoffee");
+    return coffeeData ? JSON.parse(coffeeData) : coffees;
+  });
+  const [filteredCoffee, setFilteredCoffee] = useState<Coffee[]>(allCoffee);
   const [cartItems, setCartItems] = useState<Coffee[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const ingredientOptions = ["Bubbles", "Milk", "Extra Sugar", "Double Coffee"];
@@ -28,29 +31,11 @@ const Page = () => {
   useEffect(() => {
     if (!isSignedIn) {
       router.push("/sign-up");
-    } else {
-      const coffeeData = localStorage.getItem("allCoffee");
-      if (coffeeData) {
-        const parsedCoffeeData = JSON.parse(coffeeData);
-        setAllCoffee(parsedCoffeeData);
-        setFilteredCoffee(parsedCoffeeData);
-      }
-    }
-    const items = localStorage.getItem("cart");
-    if (items) {
-      setCartItems(JSON.parse(items));
+    } else{
+      localStorage.setItem("allCoffee", JSON.stringify(coffees))
     }
   }, [isSignedIn]);
 
-  useEffect(()=> {
-    const coffeeItems = localStorage.getItem("allCoffee");
-    if(!coffeeItems){
-      localStorage.setItem(
-        "allCoffee",
-        JSON.stringify(coffees)
-      );
-    }
-  },[])
   const filterCoffee = (type: string) => {
     const filteredData: Coffee[] = allCoffee.filter(
       (coffee: Coffee) => coffee.type === type
@@ -63,9 +48,9 @@ const Page = () => {
     setShowAddForm(false);
   };
 
-  const handleSubmit = (values: any, { setSubmitting: any }) => {
+  const handleSubmit = (values: any, { setSubmitting }: any) => {
     const newCoffeeProduct: Coffee = {
-      id: allCoffee.length + 1,
+      id: allCoffee.length + 22,
       picture: values.picture,
       details: values.details,
       price: parseFloat(values.price),
@@ -105,15 +90,6 @@ const Page = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCartItems));
   };
 
-  useEffect(() => {
-    setFilteredCoffee((prevFilteredCoffee) => {
-      return prevFilteredCoffee.map((coffee) => {
-        const isInCart = cartItems.some((cartItem) => cartItem.id === coffee.id);
-        return { ...coffee, isInCart };
-      });
-    });
-  }, [cartItems]);
-  
   return (
     <>
       <div className="coffeeFilters">
@@ -124,9 +100,7 @@ const Page = () => {
           <li onClick={() => filterCoffee("Americano")}>Americano</li>
           <li onClick={() => filterCoffee("Decaf Coffee")}>Decaf Coffee</li>
           <li onClick={resetFilter}>Show All</li>
-          <button onClick={() => setShowAddForm(!showAddForm)}>
-            Custom
-          </button>{" "}
+          <button onClick={() => setShowAddForm(!showAddForm)}>Custom</button>
         </ul>
       </div>
       {!showAddForm ? (
@@ -134,7 +108,11 @@ const Page = () => {
           {filteredCoffee.map((coffee: Coffee) => (
             <div className="coffee" key={coffee.id}>
               <Link href={`/products/${coffee.id}`}>
-                <img src={coffee.picture} alt={coffee.type} />
+                <img
+                  src={coffee.picture}
+                  alt={coffee.type}
+                  data-testid={coffee.type}
+                />
               </Link>
               <h3>{coffee.type}</h3>
               <p>{coffee.details}</p>
@@ -183,7 +161,7 @@ const Page = () => {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting }: any) => {
               handleSubmit(values, { setSubmitting });
             }}
           >
