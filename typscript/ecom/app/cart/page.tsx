@@ -42,9 +42,9 @@ const CartPage = () => {
       <h1>Shopping Cart</h1>
       {cartItems.map((cartItem: Coffee) => (
         <div key={cartItem.id} className="cartItem">
-          <img src={cartItem.picture} alt={cartItem.type} />
-          <h2>{cartItem.type}</h2>
-          <p>{cartItem.details}</p>
+          <img src={cartItem.image} alt={cartItem.flavor} />
+          <h2>{cartItem.flavor}</h2>
+          <p>{cartItem.description}</p>
           <p className="price">${cartItem.price.toFixed(2)}</p>
           <input
             type="number"

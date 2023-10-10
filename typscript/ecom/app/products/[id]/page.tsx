@@ -1,25 +1,22 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import coffeeData from '../../data/coffees.json'
 import { Coffee } from "../page";
 import "./ProductDetails.css";
 
 const Page = () => {
   const { id: productID } = useParams();
   const [cartItems, setCartItems] = useState<Coffee[]>([]);
-  const coffeeData = localStorage.getItem("allCoffee");
-  const storedCoffeeData = coffeeData ? JSON.parse(coffeeData) : [];
-  const [allCoffee, setAllCoffee] = useState<Coffee[]>(storedCoffeeData);
-  const productToDisplay = allCoffee.find((coffee: Coffee) => coffee.id === Number(productID));
-  const [product, setProduct] = useState<Coffee | undefined>(productToDisplay);
+  const [coffeeData, setCoffeeData] = useState<Coffee[]>([]);
+  const product = coffeeData.find((coffee: Coffee) => coffee.id === Number(productID));
+  const isLoading = coffeeData.length === 0;
 
   useEffect(() => {
     const items = localStorage.getItem("cart");
     if (items) {
       setCartItems(JSON.parse(items));
     }
-  }, [productID, coffeeData]);
+  }, [productID]);
 
   const addToCart = () => {
     if (product) {
@@ -32,31 +29,47 @@ const Page = () => {
       );
       if (!isAlreadyInCart) {
         setCartItems((prevCart) => [...prevCart, updatedProduct]);
-        localStorage.setItem("cart",JSON.stringify([...cartItems, updatedProduct]));
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([...cartItems, updatedProduct])
+        );
       }
     }
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:4000/api/products");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setCoffeeData(data.allProducts);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="product">
-      {product ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : product ? (
         <>
           <div className="product-image">
-            <img src={product.picture} alt={`Coffee ${product.id}`} />
+            <img src={product.image} alt={`Coffee ${product.id}`} />
           </div>
           <div className="product-info">
-            <h1 data-testid="product-title">{product.type}</h1>
-            <p>{product.details}</p>
+            <h1 data-testid="product-title">{product.flavor}</h1>
+            <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <div>
               <button
-                disabled={product.isInCart}
                 data-testid="add-to-cart-button"
-                style={{
-                  backgroundColor: product.isInCart
-                    ? "rgb(131, 131, 131)"
-                    : "rgb(255, 135, 135)",
-                }}
                 onClick={addToCart}
               >
                 Add to cart
@@ -66,7 +79,7 @@ const Page = () => {
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <p>Product not found</p>
       )}
     </div>
   );

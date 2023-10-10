@@ -1,32 +1,42 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
 import './header.css';
-import coffeeDataJson from "../../data/coffees.json"
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Coffee } from "app/products/page";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [filteredData, setFilteredData] = useState<Coffee[]>([]); 
-  const [coffeeData,setCoffeeData] = useState<Coffee[]>([])
+  const [filteredData, setFilteredData] = useState<Coffee[]>([]);
+  const [dataBaseCoffee, setDataBaseCoffee] = useState<Coffee[]>([]);
 
   useEffect(() => {
     if (searchValue) {
-      const filteredCoffees = coffeeData.filter((coffee: Coffee) =>
-        coffee.type.toLowerCase().includes(searchValue.toLowerCase())
+      const filteredCoffees = dataBaseCoffee?.filter((coffee: Coffee) =>
+        coffee.flavor.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredData(filteredCoffees);
     } else {
       setFilteredData([]);
     }
-    const coffeeDataLocal = localStorage.getItem('allCoffee');
-    if(coffeeDataLocal){
-      setCoffeeData(JSON.parse(coffeeDataLocal))
-    } else {
-      setCoffeeData(coffeeDataJson)
+  }, [searchValue, dataBaseCoffee]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:4000/api/products");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setDataBaseCoffee(data.allProducts);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
-  }, [searchValue]);
+    fetchData();
+  }, []);
 
   return (
     <header>
@@ -49,14 +59,14 @@ const Header = () => {
           </li>
           <input type="text" placeholder="Search for your coffee" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
           <div className="coffee-list">
-          {filteredData.map((coffee: Coffee) => (
-            <Link href={`/products/${coffee.id}`}>
-            <div className="coffee-search" key={coffee.id} onClick={()=> setFilteredData([])} data-testid={`coffee-item-${coffee.id}`}>
-              <img src={coffee.picture} alt="" />
-              <h3>{coffee.type}</h3>
-            </div>
-            </Link>
-          ))}
+            {filteredData.map((coffee: Coffee) => (
+              <Link href={`/products/${coffee.id}`} key={coffee.id}>
+                <div className="coffee-search" onClick={() => setFilteredData([])} data-testid={`coffee-item-${coffee.id}`}>
+                  <img src={coffee.image} alt="" />
+                  <h3>{coffee.flavor}</h3>
+                </div>
+              </Link>
+            ))}
           </div>
           <li>
             <UserButton afterSignOutUrl="/" />
