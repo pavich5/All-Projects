@@ -32,7 +32,7 @@ const Header = () => {
         setDataBaseCoffee(data.allProducts);
         console.log(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       }
     }
     fetchData();
@@ -55,6 +55,11 @@ const Header = () => {
           <li>
             <Link href={"/cart"}>
               Cart
+            </Link>
+          </li>
+          <li>
+            <Link href={"/orders"}>
+              Orders
             </Link>
           </li>
           <input type="text" placeholder="Search for your coffee" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />

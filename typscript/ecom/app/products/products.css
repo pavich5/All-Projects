@@ -1,32 +1,41 @@
 .productsPage {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Display four items in each row */
+  grid-template-columns: repeat(4, 1fr); 
   justify-items: center;
   align-items: stretch;
-  padding: 250px;
+  padding: 300px;
   padding-top: 0px;
 }
 
-  .coffee {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    max-width: 270px;
-    text-align: left;
-    cursor: pointer;
-    background-color: #f9f9f9;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    
-  }
-  
+.coffee {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  max-width: 270px;
+  text-align: left;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.coffee:hover {
+  transform: scale(1.04); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fcfcfc; 
+}
   .coffee img {
-    object-fit: contain;
-    width: 270px;
+    object-fit: cover;
+    border-radius: 8px;
+    min-width: 270px;
+    max-width: 270px;
     height: 230px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
   
   .coffee h3 {
@@ -40,35 +49,49 @@
   }
   
   .coffee .price {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    margin-top: 2px;
     font-weight: bold;
     color: #333;
   }
 
-  .coffeeFilters{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .coffeeFilters ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  .coffeeFilters li {
-    padding: 14px;
-    list-style: none;
-    border: 1px solid rgb(158, 158, 158);
-    border-radius: 4px;
-    margin-right: 6px;
-    cursor: pointer;
-    background-color: #333;
-    color: white;
-    font-weight: 600;
-    margin-top: 10px;
-  }
+.coffeeFilters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.coffeeFilters ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.coffeeFilters li {
+  margin: 0 10px;
+  padding: 13px 30px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.coffeeFilters li:hover {
+  background-color: #ff5722;
+  transform: scale(1.05); 
+}
 
 
   .coffee button:disabled{
@@ -78,30 +101,91 @@
 
   .coffeeFilters button{
     border-radius: 50%;
-    width: 50px;
+    width: 57px;
     font-size: 10px;
     cursor: pointer;
     color: white;
     background-color: #333;
-    height: 50px;
+    height: 55px;
+    margin-left: 20px;
+    border: none;
   }
 
-  .formDetails{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .formDetails form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-.coffee button{
-  padding: 10px;
-  background-color: #333;
-  color: white;
-  border-radius: 4px;
-  font-weight: 500;
+.formDetails h1 {
+  text-align: center;
 }
+
+.create-coffee-form button{
+  width: 150px;
+  font-size: 13px;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  background-color: #333;
+  height: 35px;
+}
+
+.coffee button {
+  padding: 12px 20px;
+  background-color: #3d2c17; 
+  color: #fff;
+  font-family: sans-serif;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-bottom: 10px;
+}
+
+.coffee button:hover {
+  background-color: #4e361c; 
+  transform: scale(1.05); 
+}
+
+.create-coffee-form {
+  max-width: 800px; 
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #d7b897;
+  background: #f9f5f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.create-coffee-form input[type="text"],
+.create-coffee-form input[type="number"]
+{
+  width: 330px;
+  padding: 10px;
+  border: 1px solid #d7b897;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.create-coffee-form label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.create-coffee-form .error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.ingridiance {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingridiance div {
+  display: flex;
+}
+

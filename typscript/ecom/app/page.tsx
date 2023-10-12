@@ -1,18 +1,16 @@
 "use client";
 import { useEffect } from "react";
-  import { useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import './page.css'
+import "./page.css";
 import Link from "next/link";
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
-
   useEffect(() => {
     if (!isSignedIn) {
       router.push("/sign-up", { scroll: false });
     }
-    
   }, []);
 
   if (!isLoaded || !isSignedIn) {
@@ -48,10 +46,5 @@ export default function Home() {
         </div>
       </div>
     </>
-
-    // <div className="homePage">
-    //   <h1> Hello, {user.firstName} welcome to Clerk</h1>
-    //   <UserButton afterSignOutUrl="/" />
-    // </div>
   );
 }

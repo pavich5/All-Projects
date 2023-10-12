@@ -1,94 +1,82 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Page from "./page";
-
-const localStorageMock = (function () {
-  let store = {};
-  return {
-    getItem(key) {
-      return store[key];
-    },
-
-    setItem(key, value) {
-      store[key] = value;
-    },
-
-    clear() {
-      store = {};
-    },
-
-    removeItem(key) {
-      delete store[key];
-    },
-
-    getAll() {
-      return store;
-    },
-  };
-})();
-
-Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
 jest.mock("next/navigation", () => ({
   useParams: () => ({ id: "1" }),
 }));
 
-it("renders loading message initially", () => {
-  render(<Page />);
-  const loadingElement = screen.getByText("Loading...");
-  expect(loadingElement).toBeInTheDocument();
-});
-
-it("renders product information after data is loaded", async () => {
-  const product = [
-    {
+// Mock the fetch function (you can replace this with actual data if needed)
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => ({
       id: 1,
-      type: "Test Coffee",
-      details: "Test details",
-      price: 5.99,
-      picture: "test.jpg",
-    },
-  ];
-  window.localStorage.setItem("allCoffee", JSON.stringify(product));
-  window.localStorage.setItem("allCoffee", JSON.stringify(product));
-  render(<Page />);
-  const productData = window.localStorage.getItem("allCoffee");
-  expect(JSON.parse(productData)).toEqual(product);
-  const productTypeElement = screen.getByText("Test Coffee");
-  expect(productTypeElement).toBeVisible();
-});
+      flavor: "Test Flavor",
+      description: "Test Description",
+      price: 9.99,
+      brand: "Test Brand",
+      servings: 2,
+      name: "Test Coffee",
+      image: "test.jpg",
+    }),
+    ok: true,
+  })
+);
+  it("renders product information after data is loaded", async () => {
+    render(<Page />);
 
-it('adds a product to cart when "Add to cart" button is clicked', async () => {
-  const product = {
-    id: 1,
-    type: "Test Coffee",
-    details: "Test details",
-    price: 5.99,
-    picture: "test.jpg",
-    isInCart: true,
-  };
-  const productToAdd = {
-    id: 1,
-    type: "Test Coffee",
-    details: "Test details",
-    price: 5.99,
-    picture: "test.jpg",
-    isInCart: true,
-  };
-  window.localStorage.setItem("allCoffee", JSON.stringify([product]));
-  window.localStorage.setItem("cart", JSON.stringify([]));
-  render(<Page />);
+    const productTypeElement = await screen.findByText("Test Flavor");
 
-  await waitFor(() => {
-    const productTypeElement = screen.getByText("Test Coffee");
     expect(productTypeElement).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+    expect(screen.getByText("Price: $9.99")).toBeInTheDocument();
+    expect(screen.getByText("Brand: Test Brand")).toBeInTheDocument();
+    expect(screen.getByText("Servings: 2")).toBeInTheDocument();
+    expect(screen.getByText("Name: Test Coffee")).toBeInTheDocument();
+    expect(screen.getByAltText("Coffee 1")).toBeInTheDocument();
   });
 
-  const addToCartButton = screen.getByText("Add to cart");
-  fireEvent.click(addToCartButton);
+  it("adds a product to the cart when 'Add to Cart' button is clicked", async () => {
+    render(<Page />);
+    await screen.findByText("Test Flavor");
+  
+    const addToCartButton = screen.getByTestId("add-to-cart-button");
+    fireEvent.click(addToCartButton);
+  
+    const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+    expect(cartItems).toEqual([{
+      id: 1,
+      flavor: "Test Flavor",
+      description: "Test Description",
+      price: 9.99,
+      brand: "Test Brand",
+      servings: 2,
+      name: "Test Coffee",
+      image: "test.jpg",
+      isInCart: true,
+    }]);
+  });
 
-  window.localStorage.setItem("cart", JSON.stringify([productToAdd]));
-  const cardItems = JSON.parse(window.localStorage.getItem("cart"));
-
-  expect(cardItems).toEqual([productToAdd]);
-});
+  it("displays an error message when fetch fails", async () => {
+    global.fetch = jest.fn(() => Promise.reject("Fetch failed"));
+    render(<Page />);
+    waitFor(async ()=> {
+    const errorMessage = await screen.findByText("Loading...");
+    expect(errorMessage).toBeInTheDocument();
+    },{timeout:3000})
+  });
+  
+  it("displays 'Product not found' message when product is null", async () => {
+    // Mock the fetch function to resolve with null product data
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => null,
+      ok: true,
+    }));
+  
+    render(<Page />);
+  
+    // Wait for the "Product not found" message to be displayed
+    const notFoundMessage = await screen.findByText("Product not found");
+    expect(notFoundMessage).toBeInTheDocument();
+  });
+  
