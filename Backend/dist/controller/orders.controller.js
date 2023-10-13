@@ -52,7 +52,7 @@ var OrdersController = /** @class */ (function () {
                         return [4 /*yield*/, orders_model_1.OrdersModel.getAllOrders(userEmail)];
                     case 1:
                         allOrders = _a.sent();
-                        res.json(allOrders);
+                        res.json(allOrders).send('Hello World!');
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();

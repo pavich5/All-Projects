@@ -33,3 +33,5 @@ app.use((err: CustomError, req: Request, res: Response, next: NextFunction) => {
 app.listen(4000, "0.0.0.0", () => {
   console.log("Server is up at port 4000");
 });
+
+export default app;

@@ -1,22 +1,37 @@
-"use client"
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Coffee } from "../page";
 import "./ProductDetails.css";
 
 const Page = () => {
   const { id: productID } = useParams();
-  const [cartItems, setCartItems] = useState<Coffee[]>([]);
+  const [cartItems, setCartItems] = useState<Coffee[]>(
+    JSON.parse(localStorage.getItem("cart") || "[]")
+  );
   const [product, setProduct] = useState<Coffee | null>(null);
-  const [isLoading,setIsLoading] = useState<boolean>()
-  const isProductNotFound = product === null; 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const isProductNotFound = product === null;
 
   useEffect(() => {
-    const items = localStorage.getItem("cart");
-    if (items) {
-      setCartItems(JSON.parse(items));
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:4000/api/products/${productID}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setProduct(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(true);
+      }
     }
-  }, []);
+    fetchData();
+  }, [productID]);
 
   const addToCart = () => {
     if (product) {
@@ -37,26 +52,6 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/products/${productID}`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setProduct(data);
-        setIsLoading(false)
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setIsLoading(true); 
-      }
-    }
-    fetchData();
-  }, [productID]);
-
   return (
     <div className="product">
       {isLoading ? (
@@ -76,10 +71,7 @@ const Page = () => {
             <p>Servings: {product.servings}</p>
             <p>Name: {product.name}</p>
             <div>
-              <button
-                data-testid="add-to-cart-button"
-                onClick={addToCart}
-              >
+              <button data-testid="add-to-cart-button" onClick={addToCart}>
                 Add to cart
               </button>
               <button>Add to favorite</button>

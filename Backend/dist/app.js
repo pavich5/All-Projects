@@ -24,3 +24,4 @@ app.use(function (err, req, res, next) {
 app.listen(4000, "0.0.0.0", function () {
     console.log("Server is up at port 4000");
 });
+exports.default = app;

@@ -5,7 +5,7 @@ export class OrdersController {
         try {
             const userEmail = req.query.useremail; 
             const allOrders = await OrdersModel.getAllOrders(userEmail);
-            res.json(allOrders);
+            res.json(allOrders).send('Hello World!');
           } catch (error) {
             console.log(error);
             return res.sendStatus(500);
