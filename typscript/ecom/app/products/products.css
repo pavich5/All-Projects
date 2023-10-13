@@ -189,3 +189,29 @@
   display: flex;
 }
 
+/* For screens smaller than 768px (typical phones) */
+@media (max-width: 768px) {
+  .productsPage {
+    grid-template-columns: repeat(1, 1fr); /* Change to a single column layout */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .coffee {
+    max-width: 100%; /* Make each coffee item full width */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  .coffee img {
+    width: 100%; /* Make the image full width */
+    border-radius: 8px 8px 0 0; /* Adjust border radius */
+  }
+
+  .coffee h3 {
+    font-size: 1.2rem; /* Slightly smaller font size */
+  }
+
+  .coffeeFilters ul{
+    display: flex;
+    flex-direction: column;
+  }
+}

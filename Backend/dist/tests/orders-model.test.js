@@ -53,13 +53,46 @@ describe('OrdersModel', function () {
         });
     }); });
     it('should get an order by ID', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var orderId, data;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    orderId = 1;
+                    return [4 /*yield*/, orders_model_1.OrdersModel.getOrderById(orderId)];
+                case 1:
+                    data = _a.sent();
+                    expect(data).toHaveProperty('useremail');
+                    expect(data).toHaveProperty('products');
+                    return [2 /*return*/];
+            }
         });
     }); });
     it('should create a new order', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var newOrder, data;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    newOrder = {
+                        id: 1121,
+                        useremail: 'test@example.com',
+                        products: [
+                            {
+                                id: 1,
+                                name: 'Product A',
+                            },
+                            {
+                                id: 2,
+                                name: 'Product B',
+                            },
+                        ]
+                    };
+                    return [4 /*yield*/, orders_model_1.OrdersModel.createOrder(newOrder)];
+                case 1:
+                    data = _a.sent();
+                    expect(data).toHaveProperty('useremail');
+                    expect(data).toHaveProperty('products');
+                    return [2 /*return*/];
+            }
         });
     }); });
 });

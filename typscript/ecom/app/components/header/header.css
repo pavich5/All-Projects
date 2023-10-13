@@ -119,3 +119,27 @@ input[type="text"]:focus {
   box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
   outline: none;
 }
+/* For screens smaller than 768px (typical phones) */
+@media (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+
+  nav ul {
+    font-size: 12px; /* Reduce the font size for navigation items */
+    margin-right: 10px; /* Adjust margin */
+  }
+
+  nav ul li {
+    margin-right: 20px; /* Increase the margin between navigation items */
+  }
+
+  input[type="text"] {
+    max-width: 100%; /* Make the search input full width */
+    margin: 10px 0; /* Adjust margin */
+  }
+
+  .coffee-list {
+    left: 0; /* Move the coffee list to the left side */
+  }
+}

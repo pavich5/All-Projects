@@ -7,11 +7,9 @@ import "./ProductDetails.css";
 const Page = () => {
   const { id: productID } = useParams();
   const [cartItems, setCartItems] = useState<Coffee[]>(
-    JSON.parse(localStorage.getItem("cart") || "[]")
-  );
+    JSON.parse(localStorage.getItem("cart") || "[]"));
   const [product, setProduct] = useState<Coffee | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const isProductNotFound = product === null;
 
   useEffect(() => {

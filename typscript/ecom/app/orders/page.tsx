@@ -37,7 +37,7 @@ const router = useRouter();
         }
       };    
     fetchAllOrders();
-  },[])
+  },[userEmail])
 
   const fetchOrderDetails = async (orderId: number) => {
     try {

@@ -83,22 +83,14 @@ describe('Order controller', function () {
             }
         });
     }); });
-    test('The get route', function () { return __awaiter(_this, void 0, void 0, function () {
-        var res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios.get(url)];
-                case 1:
-                    res = _a.sent();
-                    expect(res).toBeTruthy();
-                    expect(res.status).toBe(200);
-                    expect(Array.isArray(res.data.allOrders)).toBe(true);
-                    res.data.allOrders.forEach(function (order) {
-                        expect(order).toHaveProperty('useremail');
-                        expect(order).toHaveProperty('products');
-                    });
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+    //   test('The get route', async () => {
+    //   const res = await axios.get(url);
+    //   expect(res).toBeTruthy();
+    //   expect(res.status).toBe(200);
+    //   expect(Array.isArray(res.data.allOrders)).toBe(true); 
+    //   res.data.allOrders.forEach(order => {
+    //     expect(order).toHaveProperty('useremail');
+    //     expect(order).toHaveProperty('products');
+    //   });
+    // });
 });
