@@ -6,10 +6,11 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState<Coffee[]>([]);
-  const [itemQuantities, setItemQuantities] = useState<{
-    [key: number]: number;
-  }>({});
+  const [cartItems, setCartItems] = useState<Coffee[]>([
+    localStorage.getItem("cart"),
+    
+  ]);
+  const [itemQuantities, setItemQuantities] = useState<{[key: number]: number;}>({});
   const {user} = useUser()
 
   useEffect(() => {

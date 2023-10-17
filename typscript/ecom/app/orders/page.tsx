@@ -18,6 +18,7 @@ const router = useRouter();
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const { user,isSignedIn } = useUser();
   const userEmail = user?.primaryEmailAddress?.emailAddress;
+  
   if(!isSignedIn){
     router.push('/sign-up')
   }
