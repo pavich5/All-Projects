@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import PokemonCard from './PokemonCart';
 
-const PokemonList = ({data}) => {
+const PokemonList = (data:any) => {
 
   return (
     <div className="pokemonList">
