@@ -19,7 +19,7 @@ const Cats = async () => {
       <div>
         <h1>Cats</h1>
         <div className="cat-images">
-          {catData.map((cat) => (
+          {catData.map((cat:any) => (
             <Link key={cat.id} href={`/cats/${cat.id}`}>
             <img
               key={cat.id}

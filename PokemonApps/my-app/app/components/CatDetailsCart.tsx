@@ -1,9 +1,6 @@
 import React from 'react';
 
-const CatDetailsCart = ({ catData }) => {
-  if (!catData) {
-    return null; 
-  }
+const CatDetailsCart = (catData:any) => {
 
   const { url, id, breeds } = catData;
   const breed = breeds && breeds.length > 0 ? breeds[0] : null;
