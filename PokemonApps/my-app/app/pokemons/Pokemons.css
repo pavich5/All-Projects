@@ -1,0 +1,58 @@
+.pokemonList {
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    background-color: aliceblue;
+    padding: 10px;
+    gap: 10px; 
+    min-height: 88vh;
+}
+
+.pokemon {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    width: 40%;
+}
+
+.pokemon a {
+    text-decoration: none;
+    color: #333;
+    text-transform: capitalize;
+}
+
+/* Hover effect for each Pokémon */
+.pokemon:hover {
+    background-color: #f4f4f4;
+    transform: scale(1.05);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons a {
+    padding: 10px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff; 
+    border-radius: 5px; 
+    display: inline-block; 
+    margin-right: 10px;
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.buttons a:hover {
+    background-color: #0056b3; 
+    color: #fff; 
+}
