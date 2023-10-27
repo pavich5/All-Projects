@@ -1,4 +1,4 @@
-import CatDetailsCart from '@/app/components/CatDetailsCart';
+import CatDetailsCart from 'app/components/CatDetailsCart';
 import React from 'react'
 import './catDetails.css'
 

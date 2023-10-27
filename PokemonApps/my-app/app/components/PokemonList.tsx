@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import PokemonCard from './PokemonCart';
+import { Button, Popconfirm } from 'antd';
 
-const PokemonList = (data:any) => {
+const PokemonList = ({data}) => {
 
   return (
     <div className="pokemonList">
@@ -12,10 +13,18 @@ const PokemonList = (data:any) => {
       return (
         <div key={pokemon.name} className="pokemon">
           <Link href={`/pokemons/${id}`}>
+          <Popconfirm
+    title="Delete the task"
+    description="Are you sure to delete this task?"
+    okText="Yes"
+    cancelText="No"
+  >
               <PokemonCard
                 id={id}
                 name={pokemon.name}
               />
+                </Popconfirm>
+
           </Link>
         </div>
       );

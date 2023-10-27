@@ -7,12 +7,11 @@ async function getCatsData() {
     `https://api.thecatapi.com/v1/images/search?limit=10`
   );
   const data = await res.json();  
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
   return data;
 }
-const Cats = async () => {
+const Cats = async (props: any) => {
+  console.log(props);
+  
   const catData = await getCatsData();
   return (
     <>
@@ -24,7 +23,7 @@ const Cats = async () => {
             <img
               key={cat.id}
               src={cat.url}
-              alt={`Cat ${cat.id}`}
+              alt={`Cat`}
               width={cat.width}
               height={cat.height}
             />

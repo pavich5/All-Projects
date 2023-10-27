@@ -9,9 +9,6 @@ async function getPokemonsData(offset: number) {
     `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=10`
   );
   const data = await res.json();
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
   return data;
 }
 const LIMIT = 10;
@@ -26,7 +23,7 @@ const Pokemons = async ({ searchParams: { page = 1 } }) => {
         {parseInt(page) > 1 && (
           <Link href={"?page=" + (parseInt(page) - 1)}>PREVIOUS</Link>
         )}
-        <Link href={"?page=" + (parseInt(page) + 1)}>NEXT</Link>
+        <Link data-testid="my-button" href={"?page=" + (parseInt(page) + 1)}>NEXT</Link>
       </div>
     </>
   );

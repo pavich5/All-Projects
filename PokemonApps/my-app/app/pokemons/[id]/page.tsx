@@ -1,4 +1,4 @@
-import PokemonDetailsCart from '@/app/components/PokemonDetailsCart';
+import PokemonDetailsCart from 'app/components/PokemonDetailsCart';
 import React from 'react'
 
 
@@ -11,6 +11,6 @@ async function getSinglePokemon(id: number) {
   export default async function Page({params: { id },}: {params: { id: number }}) {
     const pokemonData = await getSinglePokemon(id)
     return (
-      <PokemonDetailsCart pokemonData={pokemonData} />
+      <PokemonDetailsCart pokemonData={pokemonData} />     
     )
   }
